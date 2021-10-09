@@ -1,0 +1,140 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+.cMain{
+    text-align: center;
+    justify-content: center;
+    /*padding: 10px;*/
+    width: 80%;
+    margin: 2% 10% 0 10%;
+    min-height: 550px;
+    border:2px solid gray;
+    border-radius: 7px;
+    position: relative;
+}
+
+.cHead{border-bottom: 2px solid gray;padding: 5px;}
+.cHead .cHeadProfile img{margin-top: 0%;}
+.cHead .cHeadProfile #cHeadProfile-Name{display: inline;}
+.cBody{padding: 10px;}
+.cMsg{width:90%;height: 40vh;overflow-y: auto;}
+.cMsgDefault{padding: 10px;margin-bottom: 5px;border-radius: 7px;}
+.cMsg0{background-color: whitesmoke;text-align: start;}
+.cMsg1{background-color: orange;text-align: end;}
+
+.cType{
+    width: 95%;
+}
+
+.cType #cSendText{
+    position: absolute;
+    width: 80%;
+    left: 3%;
+    bottom: 4%;
+}
+.cType #cSendButton{
+    position: absolute;
+    right: 3%;
+    bottom:4.7%;
+    border: 1px solid transparent;
+    border-radius: 7px;    
+    width: 10%;
+    padding: 5px;
+    opacity: 0.8;
+    background-color: mediumaquamarine;
+    font-weight: bold;
+}
+.cType #cSendButton:active{
+    opacity: 1;
+}
+
+ul{
+    margin-left:5%;
+    list-style: none;
+}
+
+.user{
+    padding: 5px;
+    width: 40%;
+    border:1px solid black;
+    border-radius: 7px;
+    margin:3% 30% 0 30%;
+    text-align: center;
+    justify-content: center;
+    color:green;
+}
+
+.userForm{
+    position: fixed;
+    top: 25%;
+    left:20%;
+    width: 60%;
+    background-color: indianred;
+    text-align: center;
+    justify-content: center;
+    border:1px solid green;
+    border-radius: 7px;
+}
+.userForm input{
+    margin:10% 0 5% 0;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid gray;
+    border-radius: 7px;
+    padding: 10px;
+}
+.userForm button{
+    margin-bottom: 5%;
+    padding: 5px;
+    border-radius: 7px;
+    outline: none;
+}
+
+.shadow{
+    opacity: 0.2;
+}
+
+.myName{
+    position: fixed;
+    right: 10%;
+    top: 5%;
+}
+
+@media only screen and (max-width: 600px){
+    body{
+        width: 98%;
+        height: 90vh;
+    }
+    .cMain{
+        width: 100%;
+        min-height: 85vh;
+        margin-left: 0%;
+        margin-bottom: 0;
+        border: none;
+
+    }
+    .userForm{
+        left:5%;
+        width: 90%;
+    }
+    .user{
+        width: 80%;
+        margin-left: 9%;
+        margin-right: 10%;
+    }
+    .cType #cSendText{
+        min-height: 4vh;
+        padding: 5px;
+        border-radius: 7px;
+        bottom: 1%;
+    }
+    .cType #cSendButton{
+        min-height: 6vh;
+        bottom:1%;
+        right: 2%;
+        padding: 5px;
+    }
+
+}

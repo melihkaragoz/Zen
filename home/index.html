@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+
+    <div class="shadow">
+        <div class="user">
+            <strong id="userActions">&nbsp;</strong>
+        </div>
+        <div class="cMain">
+            <div class="cHead">
+                <div class="cHeadProfile">
+                    <div class="cHeadProfile-Image"><img src="/media/defaultProfilePic.jpg" width="50px"></div>
+                    <h3 id="cHeadProfile-Name">USER</h3>
+                </div>
+            </div>
+            <div class="cBody">
+                <div class="cMsg">
+                    <ul id="messages" onclick="swipeDown()"></ul>
+                </div>
+            </div>
+            <div class="cType">
+                <form id="msgForm" action="">
+                    <input type="text" name="cSendText" id="cSendText" onclick="swipeUp()" autocomplete="off">
+                    <button id="cSendButton">></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        if ($(window).width() < 700) document.getElementsByClassName('cMsg')[0].style.height = "63vh";
+
+        function swipeUp() {
+            if ($(window).width() < 700) document.getElementsByClassName('cMsg')[0].style.height = "58vh";
+            else document.getElementsByClassName('cMsg')[0].style.height = "55vh";
+        }
+
+        function swipeDown() {
+            if ($(window).width() < 700) document.getElementsByClassName('cMsg')[0].style.height = "63vh";
+        }
+
+        var scrollVal = 100
+        var myNick = '';
+        var socket = io()
+        $(function () {
+            $('#userForm').submit(function (e) {
+                e.preventDefault();
+                if ($('#nickname').val() != '') {
+                    myNick = $('#nickname').val();
+                    socket.emit('nickname', $('#nickname').val());
+                    document.getElementsByClassName('userForm')[0].style.display = 'none';
+                    document.getElementsByClassName('shadow')[0].style.opacity = '1';
+                    return false;
+                }
+            });
+            $('#msgForm').submit(function (e) {
+                e.preventDefault();
+                socket.emit('chat message', $('#cSendText').val());
+                $('#cSendText').val('');
+                return false;
+            });
+            socket.on('chat message', function (msg) {
+                    if (msg['nickname'] == myNick) {
+                        $('#messages').append($('<li>').text(msg['message']).addClass('cMsgDefault cMsg1'));
+                    } else {
+                        $('#cHeadProfile-Name').text(msg['nickname']);
+                        $('#messages').append($('<li>').text(msg['message']).addClass('cMsgDefault cMsg0'));
+                    }
+                    document.getElementsByClassName('cMsg')[0].scrollTop = scrollVal;
+                    scrollVal += 5000;
+                },
+                socket.on('userActions', function (msg) {
+                    $('#userActions').text(msg);
+                }),
+            );
+        });
+    </script>
+    <div class="userForm">
+        <form id="userForm" action="">
+            <input type="text" name="username" id="nickname" placeholder="nickname" autocomplete="off"><br>
+            <button>Sohbete Başla</button>
+        </form>
+    </div>
+</body>
+
+</html>
